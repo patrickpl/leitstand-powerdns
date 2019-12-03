@@ -1,0 +1,116 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "_Copyright (C) 2019, RtBrick, Inc._\n[Find additional information here](./description.html)",
+        "title": "Leitstand powerdns-connector API",
+        "contact": {
+            "name": "Chris Lenz (RtBrick)",
+            "url": "http://www.rtbrick.com",
+            "email": "chris@rtbrick.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/events": {
+            "post": {
+                "description": "listens to events from leitstand-inventory\n**Characteristics:**\n* Operation: **synchronous**",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "webhook listener for leitstand-inventory",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/main.inventoryDNSEvent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/rtbhttp.Message"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rtbhttp.Message"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.inventoryDNSEvent": {
+            "type": "object",
+            "properties": {
+                "dns_recordset": {
+                    "description": "GroupID string `json:\"group_id\"`\nGroupName    string `json:\"group_name\"`\nGroupType    string `json:\"group_type\"`\nElementID    string `json:\"element_id\"`\nElementName  string `json:\"element_name\"`\nElementRole  string `json:\"element_role\"`",
+                    "type": "object",
+                    "$ref": "#/definitions/main.inventoryDNSRecordSet"
+                }
+            }
+        },
+        "main.inventoryDNSRecordSet": {
+            "type": "object",
+            "properties": {
+                "dns_name": {
+                    "type": "string"
+                },
+                "dns_records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.inventoryDNSRecords"
+                    }
+                },
+                "dns_ttl": {
+                    "type": "integer"
+                },
+                "dns_type": {
+                    "type": "string"
+                },
+                "dns_withdrawn_name": {
+                    "type": "string"
+                },
+                "dns_zone_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.inventoryDNSRecords": {
+            "type": "object",
+            "properties": {
+                "disabled": {
+                    "type": "boolean"
+                },
+                "dns_setptr": {
+                    "type": "boolean"
+                },
+                "dns_value": {
+                    "type": "string"
+                }
+            }
+        },
+        "rtbhttp.Message": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

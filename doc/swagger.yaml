@@ -1,0 +1,88 @@
+definitions:
+  main.inventoryDNSEvent:
+    properties:
+      dns_recordset:
+        $ref: '#/definitions/main.inventoryDNSRecordSet'
+        description: |-
+          GroupID string `json:"group_id"`
+          GroupName    string `json:"group_name"`
+          GroupType    string `json:"group_type"`
+          ElementID    string `json:"element_id"`
+          ElementName  string `json:"element_name"`
+          ElementRole  string `json:"element_role"`
+        type: object
+    type: object
+  main.inventoryDNSRecordSet:
+    properties:
+      dns_name:
+        type: string
+      dns_records:
+        items:
+          $ref: '#/definitions/main.inventoryDNSRecords'
+        type: array
+      dns_ttl:
+        type: integer
+      dns_type:
+        type: string
+      dns_withdrawn_name:
+        type: string
+      dns_zone_name:
+        type: string
+    type: object
+  main.inventoryDNSRecords:
+    properties:
+      disabled:
+        type: boolean
+      dns_setptr:
+        type: boolean
+      dns_value:
+        type: string
+    type: object
+  rtbhttp.Message:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact:
+    email: chris@rtbrick.com
+    name: Chris Lenz (RtBrick)
+    url: http://www.rtbrick.com
+  description: |-
+    _Copyright (C) 2019, RtBrick, Inc._
+    [Find additional information here](./description.html)
+  license: {}
+  title: Leitstand powerdns-connector API
+  version: "1.0"
+paths:
+  /api/v1/events:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        listens to events from leitstand-inventory
+        **Characteristics:**
+        * Operation: **synchronous**
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.inventoryDNSEvent'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rtbhttp.Message'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rtbhttp.Message'
+      summary: webhook listener for leitstand-inventory
+swagger: "2.0"

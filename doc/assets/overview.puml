@@ -1,0 +1,26 @@
+@startuml
+!define COMPANY RtBrick <[[https://rtbrick.com rtbrick.com]]>
+!define YEAR 2015-2019
+!define FOOTER © COMPANY YEAR
+center footer FOOTER
+hide footbox
+skinparam sequence {
+    ParticipantBorderColor #44546a
+    ParticipantBackgroundColor #4fbbcc
+    ArrowColor #ed7d31
+    ArrowFontColor #44546a
+    LifeLineBorderColor #44546a
+    LifeLineBackgroundColor #4fbbcc
+}
+
+participant inventory
+
+loop every 60S
+inventory <- connector: register webhook
+end
+
+inventory -> connector++: event
+connector -> powerdns++: make changes
+connector <-- powerdns--: webhook
+inventory <-- connector--: ok
+@enduml
