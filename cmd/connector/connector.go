@@ -10,6 +10,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/leitstand/leitstand-powerdns/pkg/version"
 
@@ -48,6 +49,7 @@ func main() {
 	powerdnsClient, err := powerdns.New(
 		powerdns.WithBaseURL(config.PowerdnsBaseURL),
 		powerdns.WithAPIKeyAuthentication(config.PowerdnsAPIKey),
+		powerdns.WithDebuggingOutput(os.Stdout),
 	)
 	if err != nil {
 		fmt.Printf("%v", err)

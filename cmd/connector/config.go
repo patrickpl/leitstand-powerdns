@@ -30,6 +30,8 @@ type Config struct {
 	PowerdnsBaseURL string `json:"powerdns_base_url"`
 	// PowerdnsAPIKey the api key of powerdns (e.g.: changeme)
 	PowerdnsAPIKey string `json:"powerdns_api_key"`
+	// Nameservers to use for zone creation, not allowed to be empty
+	Nameservers []string `json:"nameservers"`
 	// WebHookID is used to register this service in the inventory as event listener.
 	// This should not change, otherwise the service is registered twice.
 	// (e.g. 52acd668-3171-45a3-b23a-05adc76dc809)

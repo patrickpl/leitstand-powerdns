@@ -1,0 +1,11 @@
+{
+  "event_id": "25a1b30f-e27a-4d24-852e-348dcbd83cb0",
+  "event_name": "DnsZoneRemovedEvent",
+  "message": {
+    "dns_zone_id": "98ba63c2-0845-45f7-8619-e32d7aeb835d",
+    "dns_zone_name": "leitstand.io.",
+    "dns_zone_description": "leitstand.io."
+  },
+  "topic_name": "element",
+  "date_created": "2019-12-05T18:21:43.522+01:00"
+}

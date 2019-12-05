@@ -5,7 +5,14 @@
 
 package main
 
-type inventoryDNSEvent struct {
+type inventoryDNSRecordEventRequest struct {
+	//EventID     string                  `json:"event_id"`
+	//EventName   string                  `json:"event_name"`
+	//TopicName   string                  `json:"topic_name"`
+	//DateCreated time.Time               `json:"date_created"`
+	Message inventoryDNSRecordEvent `json:"message"`
+}
+type inventoryDNSRecordEvent struct {
 	//GroupID string `json:"group_id"`
 	//GroupName    string `json:"group_name"`
 	//GroupType    string `json:"group_type"`
@@ -29,4 +36,16 @@ type inventoryDNSRecords struct {
 	Disabled bool   `json:"disabled"`
 	SetPTR   bool   `json:"dns_setptr"`
 	Value    string `json:"dns_value"`
+}
+type inventoryDNSZoneEventRequest struct {
+	//EventID     string                  `json:"event_id"`
+	//EventName   string                  `json:"event_name"`
+	//TopicName   string                  `json:"topic_name"`
+	//DateCreated time.Time               `json:"date_created"`
+	Message inventoryDNSZone `json:"message"`
+}
+type inventoryDNSZone struct {
+	ZoneName  string `json:"dns_zone_name"`
+	DNSZoneID string `json:"dns_zone_id"`
+	//DNSZoneDescription string `json:"dns_zone_description"`
 }

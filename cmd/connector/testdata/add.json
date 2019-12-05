@@ -1,0 +1,34 @@
+{
+  "event_id": "25a1b30f-e27a-4d24-852e-348dcbd83cb0",
+  "event_name": "ElementDnsRecordSetModifiedEvent",
+  "message": {
+    "group_id": "8a936c73-7fae-4449-ab0b-2fa39854daf0",
+    "group_name": "NBG",
+    "group_type": "pod",
+    "element_id": "f55af81b-cf4d-4340-acaf-48a3c8494a27",
+    "element_name": "test",
+    "element_role": "BORDERLEAF",
+    "dns_recordset": {
+      "dns_name": "foo.leitstand.io.",
+      "dns_records": [
+        {
+          "disabled": false,
+          "dns_setptr": false,
+          "dns_value": "10.0.0.10"
+        },
+        {
+          "disabled": true,
+          "dns_setptr": false,
+          "dns_value": "10.0.0.11"
+        }
+      ],
+      "dns_recordset_id": "3bd9bea1-5e81-45e3-8e2f-3b0641f20e97",
+      "dns_ttl": 3600,
+      "dns_type": "A",
+      "dns_zone_id": "98ba63c2-0845-45f7-8619-e32d7aeb835d",
+      "dns_zone_name": "leitstand.io."
+    }
+  },
+  "topic_name": "element",
+  "date_created": "2019-12-05T18:21:43.522+01:00"
+}

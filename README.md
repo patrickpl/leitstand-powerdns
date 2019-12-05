@@ -47,6 +47,7 @@ Usage of ./bin/darwin_amd64/connector:
 
 The Configuration file for the connector needs to specify the following data:
 
+* **Nameservers** Nameservers to use for zone creation, not allowed to be empty
 * **ExternalURL** The URL under which this service is externally reachable
 (for example, if this services is served via a reverse proxy).
 Used for generating relative and absolute links back to this service itself.
@@ -66,6 +67,7 @@ Example:
 ```json
 {
   "external_url": "${external_url:http://localhost:19991}",
+  "nameservers": ["dns."],
   "powerdns_server_id": "${powerdns_server_id:localhost}",
   "powerdns_base_url": "${powerdns_base_url:http://localhost:8081}",
   "powerdns_api_key": "${powerdns_api_key:changeme}",

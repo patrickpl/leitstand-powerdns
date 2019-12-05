@@ -15,6 +15,6 @@ import (
 
 func (app *application) routes() http.Handler {
 	router := mux.NewRouter()
-	router.Path("/api/v1/events").Methods(rtbhttp.POST).HandlerFunc(app.rbmsEvent)
+	router.Path("/api/v1/events/{event_name}").Methods(rtbhttp.POST).HandlerFunc(app.rbmsEvent)
 	return app.logRequest(router)
 }

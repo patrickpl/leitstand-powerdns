@@ -10,13 +10,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
 
 const (
-	reRegistrationTime = time.Second * 60
-	httpTimeout        = time.Second * 10
+	ElementDnsRecordSetModifiedEvent = "ElementDnsRecordSetModifiedEvent"
+	DnsZoneCreatedEvent              = "DnsZoneCreatedEvent"
+	DnsZoneRemovedEvent              = "DnsZoneRemovedEvent"
+	reRegistrationTime               = time.Second * 60
+	httpTimeout                      = time.Second * 10
 )
 
 type webHookRequest struct {
@@ -55,15 +59,16 @@ func (r *inventoryRepository) registerWebHook(ctx context.Context) {
 		}
 	}
 }
+
 func (r *inventoryRepository) register() {
 	requestData := webHookRequest{
 		HookID:      r.config.WebHookID,
 		HookName:    "powerdns",
 		Description: "Forward DNS changes to PowerDNS connector.",
 		TopicName:   "element",
-		Selector:    "ElementDnsRecordSetChangedEvent",
-		Endpoint:    fmt.Sprintf("%s/api/v1/events", r.config.ExternalURL),
-		BatchSizes:  10,
+		Selector:    fmt.Sprintf("%s|%s|%s", ElementDnsRecordSetModifiedEvent, DnsZoneCreatedEvent, DnsZoneRemovedEvent),
+		Endpoint:    fmt.Sprintf("%s/api/v1/events/{{event_name}}", r.config.ExternalURL),
+		BatchSizes:  1,
 		Method:      "POST",
 	}
 	uri := fmt.Sprintf("%s/webhooks/%s", r.config.InventoyRestRestURL, r.config.WebHookID)
@@ -88,6 +93,11 @@ func (r *inventoryRepository) register() {
 	defer resp.Body.Close()
 	if r.registerWebHookStatusCode != resp.StatusCode {
 		fmt.Printf("Response status code: %d\n", resp.StatusCode)
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Response body: %s\n", string(body))
 	}
 	r.registerWebHookStatusCode = resp.StatusCode
 }

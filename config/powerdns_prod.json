@@ -1,5 +1,6 @@
 {
   "external_url": "${external_url:http://localhost:19991}",
+  "nameservers": ["dns."],
   "powerdns_server_id": "${powerdns_server_id:localhost}",
   "powerdns_base_url": "${powerdns_base_url:http://localhost:8081}",
   "powerdns_api_key": "${powerdns_api_key:changeme}",

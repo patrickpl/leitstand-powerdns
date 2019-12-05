@@ -3,6 +3,7 @@
   "powerdns_server_id": "${powerdns_server_id:localhost}",
   "powerdns_base_url": "${powerdns_base_url:http://localhost:8081}",
   "powerdns_api_key": "${powerdns_api_key:changeme}",
+  "nameservers": ["dns."],
   "inventory_rest_rest_url":"${inventory_rest_rest_url:http://10.0.0.7:8080/api/v1}",
   "web_hook_id": "${web_hook_id:52acd668-3171-45a3-b23a-05adc76dc809}",
   "inventory_authorization_header": "${inventory_authorization_header:Basic bWFydGluOmdlaGVpbQ==}"
