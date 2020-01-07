@@ -1,7 +1,6 @@
 version: "2.1"
 
 services:
-
   pdns:
     build: .
     image: localhost/psitrax/powerdns:4.1.0
@@ -21,3 +20,13 @@ services:
     image: mariadb:10.1
     environment:
      - MYSQL_ROOT_PASSWORD=supersecret
+
+  rtb-powerdns-connector:
+    image: docker.rtbrick.com/rtb-powerdns-connector:0.0.2
+    restart: always
+    ports:
+      - 19991:19991
+    environment:
+      - powerdns_base_url=http://pdns:8080
+    depends_on:
+      - pdns
